@@ -38,6 +38,6 @@ __DATA__
 --- request
     GET /t
 --- response_body
-count: 6
+count: 5
 --- no_error_log
 [error]

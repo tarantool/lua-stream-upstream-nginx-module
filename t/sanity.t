@@ -24,7 +24,7 @@ run_tests();
 __DATA__
 
 === TEST 1: get upstream names
---- http_config
+--- stream_config
     upstream foo.com:1234 {
         server 127.0.0.1;
     }
@@ -55,7 +55,7 @@ done
 
 
 === TEST 2: get upstream names (no upstream)
---- http_config
+--- stream_config
 --- config
     location /t {
         content_by_lua '
@@ -77,7 +77,7 @@ done
 
 
 === TEST 3: get servers
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
 
     upstream foo.com:1234 {
@@ -116,7 +116,7 @@ failed to get servers: upstream not found
 
 
 === TEST 4: sample in README
---- http_config
+--- stream_config
     upstream foo.com {
         server 127.0.0.1 fail_timeout=53 weight=4 max_fails=100;
         server agentzh.org:81;
@@ -177,7 +177,7 @@ upstream bar:
 
 
 === TEST 5: multi-peer servers
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream test {
         server multi-ip-test.openresty.com;
@@ -206,7 +206,7 @@ upstream bar:
 
 
 === TEST 6: get primary peers: multi-peer servers
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream test {
         server multi-ip-test.openresty.com;
@@ -235,7 +235,7 @@ upstream bar:
 
 
 === TEST 7: get primary peers
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream foo.com:1234 {
         server 127.0.0.6 fail_timeout=5 backup;
@@ -275,7 +275,7 @@ upstream bar:
 
 
 === TEST 8: get backup peers
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream foo.com:1234 {
         server 127.0.0.6 fail_timeout=5 backup;
@@ -315,7 +315,7 @@ upstream bar:
 
 
 === TEST 9: set primary peer down (0)
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream bar {
         server 127.0.0.2;
@@ -351,7 +351,7 @@ upstream bar:
 
 
 === TEST 10: set primary peer down (1, bad index)
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream bar {
         server 127.0.0.2;
@@ -387,7 +387,7 @@ failed to set peer down: bad peer id
 
 
 === TEST 11: set backup peer down (index 0)
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream bar {
         server 127.0.0.2;
@@ -423,7 +423,7 @@ failed to set peer down: bad peer id
 
 
 === TEST 12: set backup peer down (toggle twice, index 0)
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream bar {
         server 127.0.0.2;
@@ -465,7 +465,7 @@ failed to set peer down: bad peer id
 
 
 === TEST 13: set backup peer down (index 1)
---- http_config
+--- stream_config
     $TEST_NGINX_MY_INIT_CONFIG
     upstream bar {
         server 127.0.0.2;
@@ -502,7 +502,7 @@ failed to set peer down: bad peer id
 
 
 === TEST 14: upstream names with ports (github #2)
---- http_config
+--- stream_config
 --- config
     location /upstream1 {
         proxy_pass http://127.0.0.1:1190;
@@ -567,7 +567,7 @@ upstream 127.0.0.1:1130:
 
 
 === TEST 15: upstream_name with valid explicit upstream
---- http_config
+--- stream_config
     upstream some_upstream {
         server 127.0.0.1:$TEST_NGINX_SERVER_PORT;
     }
